@@ -1,5 +1,5 @@
 use crate::flatten::Merge;
-use crate::gen::SchemaGenerator;
+use crate::r#gen::SchemaGenerator;
 use crate::schema::{Metadata, Schema, SchemaObject};
 use crate::JsonSchema;
 use serde::Serialize;
@@ -7,10 +7,10 @@ use serde_json::Value;
 
 // Helper for generating schemas for flattened `Option` fields.
 pub fn json_schema_for_flatten<T: ?Sized + JsonSchema>(
-    gen: &mut SchemaGenerator,
+    generator: &mut SchemaGenerator,
     required: bool,
 ) -> Schema {
-    let mut schema = T::_schemars_private_non_optional_json_schema(gen);
+    let mut schema = T::_schemars_private_non_optional_json_schema(generator);
 
     if T::_schemars_private_is_option() && !required {
         if let Schema::Object(SchemaObject {
